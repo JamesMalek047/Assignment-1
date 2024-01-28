@@ -72,6 +72,7 @@ public class ParkingLot {
 	 */
 	public void park(int i, int j, Car c) {
 		// WRITE YOUR CODE HERE!
+		occupancy[i][j] = c;
 	}
 
 	/**
@@ -84,8 +85,15 @@ public class ParkingLot {
 	 */
 	public Car remove(int i, int j) {
 		// WRITE YOUR CODE HERE!
-		return null; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD
-
+		// Checks if indices are whithin valid range and if there is no car parked at (i, j)
+		if (i < 0 || i >= occupancy.length || j < 0 || j >= occupancy[i].length || occupancy[i][j] == null)
+		{
+			return null;
+		}
+		// Remove and return the car parked at (i, j)
+		Car carToRemove = occupancy[i][j];
+		occupancy[i][j] = null;
+		return carToRemove;
 	}
 
 	/**
@@ -98,8 +106,30 @@ public class ParkingLot {
 	 */
 	public boolean canParkAt(int i, int j, Car c) {
 		// WRITE YOUR CODE HERE!
-		return false; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD
+		boolean canPark = false;
 
+		if (occupancy[i][j] != null || lotDesign[i][j] == CarType.NA)
+		{
+			canPark = false;
+		}
+		else if (c.getType() == CarType.ELECTRIC)
+		{
+			canPark = true;
+		}
+		else if (c.getType() == CarType.SMALL && lotDesign[i][j] != CarType.ELECTRIC)
+		{
+			canPark = true;
+		}
+		else if (c.getType() == CarType.LARGE && lotDesign[i][j] == CarType.LARGE)
+		{
+			canPark = true;
+		}
+		else if (c.getType() == CarType.REGULAR && (lotDesign[i][j] == CarType.REGULAR || lotDesign[i][j] == CarType.LARGE))
+		{
+			canPark = true;
+		}
+
+		return canPark;
 	}
 
 	/**
@@ -108,8 +138,18 @@ public class ParkingLot {
 	 */
 	public int getTotalCapacity() {
 		// WRITE YOUR CODE HERE!
-		return -1; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD
-
+		int totalCapacity = 0;
+		for (int i = 0; i < lotDesign.length; i++)
+		{
+			for (int j = 0; j < lotDesign[i].length; j++)
+			{
+				if (lotDesign[i][j] != CarType.NA)
+				{
+					totalCapacity++;
+				}
+			}
+		}
+		return totalCapacity;
 	}
 
 	/**
@@ -118,7 +158,18 @@ public class ParkingLot {
 	 */
 	public int getTotalOccupancy() {
 		// WRITE YOUR CODE HERE!
-		return -1; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD		
+		int totalOccupancy = 0;
+		for (int i = 0; i < occupancy.length; i++)
+		{
+			for (int j = 0; j < occupancy[i].length; j++)
+			{
+				if (occupancy[i][j] != null)
+				{
+					totalOccupancy++;
+				}
+			}
+		}
+		return totalOccupancy;
 	}
 
 	private void calculateLotDimensions(String strFilename) throws Exception {
@@ -160,8 +211,7 @@ public class ParkingLot {
 	 * @return String containing the parking lot information
 	 */
 	public String toString() {
-		// NOTE: The implementation of this method is complete. You do NOT need to
-		// change it for the assignment.
+		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("==== Lot Design ====").append(System.lineSeparator());
 
