@@ -172,15 +172,20 @@ public class ParkingLot {
 		return totalOccupancy;
 	}
 
+	public int getNumRows() {
+        return this.numRows;
+    }
+	public int getnumSpotsPerRow() {
+        return this.numSpotsPerRow;
+    }
+
 	private void calculateLotDimensions(String strFilename) throws Exception {
-
 		Scanner scanner = new Scanner(new File(strFilename));
-
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
-			// WRITE YOUR CODE HERE!
+			numSpotsPerRow=str.length();
+			numRows++;
 		}
-
 		scanner.close();
 	}
 
@@ -190,10 +195,20 @@ public class ParkingLot {
 
 		// YOU MAY NEED TO DEFINE SOME LOCAL VARIABLES HERE!
 
+		int rowNumber=0;
+		int rowPosition;
+		char carType;
+		char licenseNumber;
+
 		// while loop for reading the lot design
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
 			// WRITE YOUR CODE HERE!
+			
+			rowNumber=str[0];
+			rowPosition=str[1];
+
+
 		}
 
 		// while loop for reading occupancy data

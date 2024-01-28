@@ -17,7 +17,7 @@ public class StudentInfo {
 
         System.out.println("************************************************************");
         System.out.println("*                                                          *");
-        System.out.println("*  Name: James Malek; Student ID: 000000000; Section: A00  *");
+        System.out.println("*  Name: James Malek; Student ID: 300352042; Section: A00  *");
         System.out.println("* Name: Melanie Malek; Student ID: 300351596; Section: A00 *");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
