@@ -3,33 +3,18 @@
  */
 public class Car {
 
-	/**
-	 * Instance variable for storing the type of the car
-	 */
+	//Instance variable for storing the type of the car
 	private CarType type;
 
-	/**
-	 * Instance variable for storing the car plate number
-	 */
+	//Instance variable for storing the car plate number
 	private String plateNum;
 
 	/**
 	 * @return the type of this car
 	 */
 	public CarType getType() {
-		// WRITE YOUR CODE HERE!
-		String type;
-
-		if(/*... */){
-			type=/*... */;
-		}
-
-		else{
-			type="Unoccupied";
-		}
-
-		return type;
-		/*return null; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD*/
+	
+		return this.type;
 	}
 
 	/**
@@ -38,7 +23,8 @@ public class Car {
 	 * @param type is the car type
 	 */
 	public void setType(CarType type) {
-		// WRITE YOUR CODE HERE!
+
+        this.type = type;
 	}
 
 	/**
@@ -46,7 +32,7 @@ public class Car {
 	 */
 	public String getPlateNum() {
 		// WRITE YOUR CODE HERE!
-		return null; // REMOVE THIS STATEMENT AFTER IMPLEMENTING THIS METHOD
+		return this.plateNum; 
 	}
 
 	/**
@@ -55,7 +41,8 @@ public class Car {
 	 * @param plateNum is the car plate number
 	 */
 	public void setPlateNum(String plateNum) {
-	// WRITE YOUR CODE HERE!
+
+        this.plateNum = plateNum;
 	}
 
 	/**
@@ -65,15 +52,16 @@ public class Car {
 	 * @param plateNum is the car plate number
 	 */
 	public Car(CarType type, String plateNum) {
-	// WRITE YOUR CODE HERE!
+
+        this.type = type;
+        this.plateNum = plateNum;
 	}
 
 	/**
 	 * Returns a string representation of the car
 	 */
 	public String toString() {
-		// NOTE: The implementation of this method is complete. You do NOT need to
-		// change it for the assignment.
+
 		return Util.getLabelByCarType(type) + '(' + plateNum + ')';
 	}
 }
