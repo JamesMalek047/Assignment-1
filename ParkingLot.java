@@ -75,6 +75,7 @@ public class ParkingLot {
 	 */
 	public void park(int i, int j, Car c) {
 		// WRITE YOUR CODE HERE!
+		// MIGHT ADD IF STATEMENT TO MAKE SURE IF IT IS A VALID SPOT
 		occupancy[i][j] = c;
 	}
 
