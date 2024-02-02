@@ -1,5 +1,6 @@
 /**
- * @author Mehrdad Sabetzadeh, University of Ottawa
+ * @author James Malek
+ * @author Melanie Malek
  */
 public class Car {
 

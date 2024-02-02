@@ -2,7 +2,8 @@ import java.io.File;
 import java.util.Scanner;
 
 /**
- * @author Mehrdad Sabetzadeh, University of Ottawa
+ * @author James Malek
+ * @author Melanie Malek
  */
 public class ParkingLot {
 	/**
@@ -110,14 +111,17 @@ public class ParkingLot {
 		// WRITE YOUR CODE HERE!
 		boolean canPark = false;
 
+		// Test to ensure that the car cannot be parked at an out-of-bound position
 		if (i < 0 || i >= numRows || j < 0 || j >= numSpotsPerRow) {
 			// Indices out of bounds
 			return false;
 		}
 
-		if (occupancy[i][j] != null || lotDesign[i][j] == CarType.NA) {
+		// Testing to see if a car is already parked at this location or if no car is allowed to park there (NA)
+		if (occupancy[i][j] != null || lotDesign[i][j] == CarType.NA) { 
 			canPark = false;
-		} else if (c.getType() == CarType.ELECTRIC) {
+		// Tests for parking rules for each type of car
+		} else if (c.getType() == CarType.ELECTRIC) { 
 			canPark = true;
 		} else if (c.getType() == CarType.SMALL && lotDesign[i][j] != CarType.ELECTRIC) {
 			canPark = true;
@@ -165,10 +169,16 @@ public class ParkingLot {
 		return totalOccupancy;
 	}
 
+	/**
+	 * @return the total amount of rows
+	 */
 	public int getNumRows() {
 		return this.numRows;
 	}
 
+	/**
+	 * @return the total amount of spots per rows
+	 */
 	public int getnumSpotsPerRow() {
 		return this.numSpotsPerRow;
 	}
@@ -200,7 +210,7 @@ public class ParkingLot {
 	private void populateFromFile(String strFilename) throws Exception {
 
 		Scanner scanner = new Scanner(new File(strFilename));
-
+		// Reads through the file to generate the number of rows
 		int rowNumber = 0;
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
@@ -222,7 +232,7 @@ public class ParkingLot {
 			rowNumber++;
 		}
 		
-		
+		// 
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
 			str = str.replaceAll("\\s", "");
