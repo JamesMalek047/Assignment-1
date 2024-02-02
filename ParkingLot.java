@@ -238,8 +238,8 @@ public class ParkingLot {
 			int rowIndex = Integer.parseInt((carRegistry[0]));
 			int columnIndex = Integer.parseInt((carRegistry[1]));
 
-			if (canParkAt((rowIndex), (columnIndex), carIdea)) {
-				park((rowIndex), (columnIndex), carIdea);
+			if (canParkAt(rowIndex, columnIndex, carIdea)) {
+				park(rowIndex, columnIndex, carIdea);
 			} else {
 				System.out.println("Car " + carRegistry[2] + "(" + carRegistry[3] + ") cannot be parked at ("
 						+ carRegistry[0] + "," + carRegistry[1] + ")");
