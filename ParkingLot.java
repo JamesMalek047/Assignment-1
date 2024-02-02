@@ -53,6 +53,8 @@ public class ParkingLot {
 		// writing your own code or alternatively completing the 
 		// private calculateLotDimensions(...) that I have provided
 		calculateLotDimensions(strFilename);
+		lotDesign = new CarType[numRows][numSpotsPerRow];
+		occupancy = new Car[numRows][numSpotsPerRow];
 
 		// instantiate the lotDesign and occupancy variables!
 		// WRITE YOUR CODE HERE!
@@ -107,6 +109,11 @@ public class ParkingLot {
 	public boolean canParkAt(int i, int j, Car c) {
 		// WRITE YOUR CODE HERE!
 		boolean canPark = false;
+
+		if (i < 0 || i >= numRows || j < 0 || j >= numSpotsPerRow) {
+			// Indices out of bounds
+			return false;
+		}
 
 		if (occupancy[i][j] != null || lotDesign[i][j] == CarType.NA)
 		{
@@ -183,46 +190,74 @@ public class ParkingLot {
 		Scanner scanner = new Scanner(new File(strFilename));
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
-			numSpotsPerRow=str.length();
-			numRows++;
+
+			if(str.contains(SECTIONER)){
+				break;
+			}
+
+			else if(str.length()==0){
+				continue;
+			} else{
+				numRows++;
+				String[] columns = str.split(", ");
+				numSpotsPerRow=columns.length;
+				
+			}
+			
 		}
 		scanner.close();
 	}
 
+	static int notOpen = 0;
 	private void populateFromFile(String strFilename) throws Exception {
 
 		Scanner scanner = new Scanner(new File(strFilename));
-
-		// YOU MAY NEED TO DEFINE SOME LOCAL VARIABLES HERE!
-
+		
 		int rowNumber=0;
-		int rowPosition;
-		char carType;
-		char licenseNumber;
-
-		// while loop for reading the lot design
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
-			// WRITE YOUR CODE HERE!
-			
-			rowNumber=str[0];
-			rowPosition=str[1];
+			str = str.replaceAll("\\s", "");
 
-
+			if (str.contains(SECTIONER)){
+				break;
+			} else if(str.length() == 0){
+				continue;
+			} else{
+				String [] row=str.split(",");
+				for (int j = 0; j < row.length; j++) {
+					lotDesign[rowNumber][j]=Util.getCarTypeByLabel(row[j]);
+					if (row[j].equals("N")){
+						notOpen++;
+					}
+				}
+			}
+			rowNumber++;
 		}
-
 		// while loop for reading occupancy data
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
-			// WRITE YOUR CODE HERE!
+			str = str.replaceAll("\\s", "");
+			if (str.length() == 0){
+				continue;
+			}
+			String[] carRegistry=str.split(",");
+			Car carIdea = new Car(Util.getCarTypeByLabel(carRegistry[2]), carRegistry[3]);
+			carIdea.setType(Util.getCarTypeByLabel(carRegistry[2]));
+			if (canParkAt(Integer.parseInt(String.valueOf(carRegistry[0])), Integer.parseInt(String.valueOf(carRegistry[1])), carIdea) == true){
+				park(Integer.parseInt(String.valueOf(carRegistry[0])), Integer.parseInt(String.valueOf(carRegistry[1])), carIdea);
+			}
+			else{
+				System.out.println("Car " + carRegistry[2] + "(" + carRegistry[3] + ") cannot be parked at (" + carRegistry[0]+","+ carRegistry[1] + ")");
+			}
 		}
-
 		scanner.close();
 	}
 
+	
+
 	/**
 	 * Produce string representation of the parking lot
-	 * 
+	 *  
 	 * @return String containing the parking lot information
 	 */
 	public String toString() {
