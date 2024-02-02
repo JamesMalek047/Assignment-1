@@ -192,7 +192,6 @@ public class ParkingLot {
 			if (str.contains(SECTIONER)) {
 				break;
 			}
-
 			else if (str.length() == 0) {
 				continue;
 			} else {
@@ -206,7 +205,7 @@ public class ParkingLot {
 		scanner.close();
 	}
 
-	static int notAplicable = 0;
+	static int notForUse = 0;
 
 	private void populateFromFile(String strFilename) throws Exception {
 
@@ -216,17 +215,16 @@ public class ParkingLot {
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
 			str = str.replaceAll("\\s", "");
-
 			if (str.contains(SECTIONER)) {
 				break;
 			} else if (str.length() == 0) {
 				continue;
 			} else {
 				String[] row = str.split(SEPARATOR);
-				for (int j = 0; j < row.length; j++) {
-					lotDesign[rowNumber][j] = Util.getCarTypeByLabel(row[j]);
-					if (row[j].equals("N")) {
-						notAplicable++;
+				for (int positionInRow = 0; positionInRow < row.length; positionInRow++) {
+					lotDesign[rowNumber][positionInRow] = Util.getCarTypeByLabel(row[positionInRow]);
+					if (row[positionInRow].equals("N")) {
+						notForUse++;
 					}
 				}
 			}
@@ -240,7 +238,7 @@ public class ParkingLot {
 			if (str.length() == 0) {
 				continue;
 			}
-			String[] carRegistry = str.split(SEPARATOR);
+			String[] carRegistry = str.split(SEPARATOR); //Create an array of type String []
 			Car carIdea = new Car(Util.getCarTypeByLabel(carRegistry[2]), carRegistry[3]);
 			carIdea.setType(Util.getCarTypeByLabel(carRegistry[2]));
 
@@ -252,8 +250,7 @@ public class ParkingLot {
 			if (canParkAt(rowIndex, columnIndex, carIdea)) {
 				park(rowIndex, columnIndex, carIdea);
 			} else {
-				System.out.println("Car " + carRegistry[2] + "(" + carRegistry[3] + ") cannot be parked at ("
-						+ carRegistry[0] + "," + carRegistry[1] + ")");
+				System.out.println("Car " + carRegistry[2] + "(" + carRegistry[3] + ") cannot be parked at (" + carRegistry[0] + "," + carRegistry[1] + ")");
 			}
 		}
 		scanner.close();
