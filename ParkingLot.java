@@ -197,7 +197,7 @@ public class ParkingLot {
 				continue;
 			} else {
 				numRows++;
-				String[] columns = str.split(", ");
+				String[] columns = str.split(SEPARATOR);
 				numSpotsPerRow = columns.length;
 
 			}
@@ -206,7 +206,7 @@ public class ParkingLot {
 		scanner.close();
 	}
 
-	static int notOpen = 0;
+	static int notAplicable = 0;
 
 	private void populateFromFile(String strFilename) throws Exception {
 
@@ -226,7 +226,7 @@ public class ParkingLot {
 				for (int j = 0; j < row.length; j++) {
 					lotDesign[rowNumber][j] = Util.getCarTypeByLabel(row[j]);
 					if (row[j].equals("N")) {
-						notOpen++;
+						notAplicable++;
 					}
 				}
 			}
