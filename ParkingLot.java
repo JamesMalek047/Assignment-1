@@ -75,7 +75,6 @@ public class ParkingLot {
 	 */
 	public void park(int i, int j, Car c) {
 		// WRITE YOUR CODE HERE!
-		// MIGHT ADD IF STATEMENT TO MAKE SURE IF IT IS A VALID SPOT
 		occupancy[i][j] = c;
 	}
 
@@ -217,9 +216,11 @@ public class ParkingLot {
 			str = str.replaceAll("\\s", "");
 			if (str.contains(SECTIONER)) {
 				break;
-			} else if (str.length() == 0) {
+			} 
+			else if (str.length() == 0) {
 				continue;
-			} else {
+			} 
+			else {
 				String[] row = str.split(SEPARATOR);
 				for (int positionInRow = 0; positionInRow < row.length; positionInRow++) {
 					lotDesign[rowNumber][positionInRow] = Util.getCarTypeByLabel(row[positionInRow]);
@@ -231,7 +232,6 @@ public class ParkingLot {
 			rowNumber++;
 		}
 		
-		// 
 		while (scanner.hasNext()) {
 			String str = scanner.nextLine();
 			str = str.replaceAll("\\s", "");
@@ -241,8 +241,6 @@ public class ParkingLot {
 			String[] carRegistry = str.split(SEPARATOR); //Create an array of type String []
 			Car carIdea = new Car(Util.getCarTypeByLabel(carRegistry[2]), carRegistry[3]);
 			carIdea.setType(Util.getCarTypeByLabel(carRegistry[2]));
-
-			//Add    String.valueOf  in case it crashes
 
 			int rowIndex = Integer.parseInt((carRegistry[0]));
 			int columnIndex = Integer.parseInt((carRegistry[1]));
@@ -285,7 +283,6 @@ public class ParkingLot {
 						"(" + i + ", " + j + "): " + ((occupancy[i][j] != null) ? occupancy[i][j] : "Unoccupied"));
 				buffer.append(System.lineSeparator());
 			}
-
 		}
 		return buffer.toString();
 	}
@@ -317,6 +314,5 @@ public class ParkingLot {
 		System.out.println("Number of cars currently parked in the lot: " + lot.getTotalOccupancy());
 
 		System.out.print(lot);
-
 	}
 }
